@@ -1,0 +1,20 @@
+[
+    {
+      "symbol": "BTC",
+      "name": "Bitcoin"
+    },
+    {
+      "symbol": "ETH",
+      "name": "Ethereum"
+    },
+    {
+      "symbol": "SOL",
+      "name": "Solana"
+    },
+    {
+      "symbol": "JUP",
+      "name": "Jupiter"
+    }
+       
+]
+  
