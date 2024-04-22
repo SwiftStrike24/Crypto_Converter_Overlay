@@ -27,23 +27,38 @@
         button, input, select {
             -webkit-app-region: no-drag;
         }
+        .flex-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .input-group {
+            margin: 0 15px;
+        }
     </style>
 </head>
 <body>
 
 <div class="converter-container draggable">
     <h1>Crypto Converter</h1>
-    <div class="form-group">
-        <input type="number" id="amount-input" class="form-control" placeholder="Enter amount">
+    <div class="flex-container">
+        <div class="input-group">
+            <input type="number" id="crypto-input" class="form-control" placeholder="Enter crypto amount">
+            <select id="crypto-symbol-select" class="form-control mt-2">
+                <% cryptoList.forEach(function(crypto) { %>
+                    <option value="<%= crypto.symbol %>"><%= crypto.name %> (<%= crypto.symbol %>)</option>
+                <% }); %>
+            </select>
+        </div>
+        <div class="input-group">
+            <input type="number" id="fiat-input" class="form-control" placeholder="Enter fiat amount">
+            <select id="fiat-symbol-select" class="form-control mt-2">
+                <% fiatList.forEach(function(fiat) { %>
+                    <option value="<%= fiat.symbol %>"><%= fiat.name %> (<%= fiat.symbol %>)</option>
+                <% }); %>
+            </select>
+        </div>
     </div>
-    <div class="form-group">
-        <select id="currency-symbol-select" class="form-control">
-            <% cryptoList.forEach(function(crypto) { %> <!-- Loop through the cryptoList array -->
-                <option value="<%= crypto.symbol %>"><%= crypto.name %> (<%= crypto.symbol %>)</option>
-            <% }); %>
-        </select>
-    </div>
-    <button id="convert-button" class="btn btn-primary btn-block">Convert</button>
     <div id="result-display" class="alert alert-info mt-3" role="alert" style="display: none;"></div>
 </div>
 

@@ -1,20 +1,22 @@
 [
-    {
-      "symbol": "BTC",
-      "name": "Bitcoin"
-    },
-    {
-      "symbol": "ETH",
-      "name": "Ethereum"
-    },
-    {
-      "symbol": "SOL",
-      "name": "Solana"
-    },
-    {
-      "symbol": "JUP",
-      "name": "Jupiter"
-    }
-       
+  {
+    "id": "1",
+    "symbol": "BTC",
+    "name": "Bitcoin"
+  },
+  {
+    "id": "1027",
+    "symbol": "ETH",
+    "name": "Ethereum"
+  },
+  {
+    "id": "5426",
+    "symbol": "SOL",
+    "name": "Solana"
+  },
+  {
+    "id": "29210",
+    "symbol": "JUP",
+    "name": "Jupiter"
+  }
 ]
-  

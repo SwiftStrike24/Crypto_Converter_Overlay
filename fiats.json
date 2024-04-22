@@ -1,0 +1,22 @@
+[
+    {
+        "symbol": "CAD",
+        "name": "Canadian Dollar",
+        "id": "2784"
+    },
+    {
+        "symbol": "USD",
+        "name": "United States Dollar",
+        "id": "2781"
+    },
+    {
+        "symbol": "EUR",
+        "name": "Euro",
+        "id": "2790"
+    },
+    {
+        "symbol": "PHP",
+        "name": "Philippine Peso",
+        "id": "2803"
+    }
+]
