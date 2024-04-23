@@ -18,5 +18,10 @@
     "id": "29210",
     "symbol": "JUP",
     "name": "Jupiter"
+  },
+  {
+    "id": "825",
+    "symbol": "USDT",
+    "name": "Tether"
   }
 ]
