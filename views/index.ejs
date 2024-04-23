@@ -5,42 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Converter</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 20px;
-            overflow: hidden;
-            background-color: #f7f7f7;
-            -webkit-user-select: none; /* Disable text selection */
-        }
-        .draggable {
-            -webkit-app-region: drag;
-            user-select: none; /* Disable text selection */
-        }
-        .converter-container {
-            max-width: 100%;
-            text-align: center;
-        }
-        #result-display {
-            margin-top: 20px;
-        }
-        button, input, select {
-            -webkit-app-region: no-drag;
-        }
-        .flex-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .input-group {
-            margin: 0 15px;
-        }
-    </style>
+    <!-- Link to the custom CSS file -->
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<div class="converter-container draggable">
-    <h1>Crypto Converter</h1>
+<!-- index.ejs v1.5 -->
+
+<!-- Dark Mode Toggle Switch -->
+<div class="switch">
+  <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox">
+  <label for="dark-mode-toggle" class="slider round"></label>
+</div>
+
+<!-- Converter Container -->
+<div class="converter-container">
+    <!-- Title Bar -->
+    <div class="draggable">
+        <h1>Crypto Converter</h1>
+    </div>
+    
+    <!-- Input and Select Elements -->
     <div class="flex-container">
         <div class="input-group">
             <input type="number" id="crypto-input" class="form-control" placeholder="Enter crypto amount">
@@ -59,12 +44,44 @@
             </select>
         </div>
     </div>
-    <div id="result-display" class="alert alert-info mt-3" role="alert" style="display: none;"></div>
+    <div id="result-display" class="alert alert-info mt-3" style="display: none;"></div>
 </div>
 
-<script src="/js/converter.js"></script>
+<!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="/js/converter.js"></script>
+
+<!-- Toggle Dark Mode Script -->
+<script>
+  function toggleDarkMode(isDark) {
+    if (isDark) {
+      document.body.classList.add('dark-mode');
+      document.body.classList.remove('light-mode');
+    } else {
+      document.body.classList.add('light-mode');
+      document.body.classList.remove('dark-mode');
+    }
+  }
+
+  function saveDarkModePreference(isDark) {
+    localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleSwitch = document.getElementById('dark-mode-toggle');
+    const isDarkModeEnabled = localStorage.getItem('darkMode') === 'enabled';
+    toggleSwitch.checked = isDarkModeEnabled;
+    toggleDarkMode(isDarkModeEnabled);
+
+    toggleSwitch.addEventListener('change', function() {
+      const isDark = this.checked;
+      toggleDarkMode(isDark);
+      saveDarkModePreference(isDark);
+    });
+  });
+</script>
+
 </body>
 </html>
