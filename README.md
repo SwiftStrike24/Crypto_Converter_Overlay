@@ -51,6 +51,10 @@ To get the app running locally on your machine, follow these steps:
 
 Once the app is running, navigate to the home page where you will see two input fields for the amount to be converted. Select the type of currency from the dropdown menus and enter the amount. The conversion result will be displayed below the input fields.
 
+## Shortcut Activation
+
+Quickly activate/deactivate the conversion tool with the `Ctrl+Shift+X` shortcut, streamlining your workflow.
+
 ## Contributing
 
 Contributions to the Crypto Converter app are welcome. If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
