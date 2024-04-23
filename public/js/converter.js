@@ -5,13 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const fiatSymbolSelect = document.getElementById('fiat-symbol-select');
     const resultDisplay = document.getElementById('result-display');
 
-    // Function to clear the non-active input field
-    function clearOtherInput(activeInput) {
-        if (activeInput === cryptoInput) {
-            fiatInput.value = ''; // Clear the fiat input if crypto input is active
-        } else {
-            cryptoInput.value = ''; // Clear the crypto input if fiat input is active
-        }
+    // Function to clear both input fields
+    function clearInputs() {
+        cryptoInput.value = '';
+        fiatInput.value = '';
     }
 
     // Function to update result display
@@ -23,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to format the converted amount based on the type of currency
     const formatConvertedAmount = (amount, isCrypto) => {
-        // Use more decimal places for cryptocurrencies, fewer for fiat
         const decimalPlaces = isCrypto ? 8 : 2;
         return Number(amount).toFixed(decimalPlaces);
     };
@@ -35,15 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const cryptoSymbol = cryptoSymbolSelect.value;
         const fiatSymbol = fiatSymbolSelect.value;
 
-        // Determine if the active conversion is to or from crypto
         const isConvertingToCrypto = Boolean(fiatAmount);
-
-        // Check which input is active and set the amount and symbols accordingly
-        let amount = cryptoAmount ? cryptoAmount : fiatAmount;
+        let amount = cryptoAmount || fiatAmount;
         let fromSymbol = cryptoAmount ? cryptoSymbol : fiatSymbol;
         let toSymbol = cryptoAmount ? fiatSymbol : cryptoSymbol;
 
-        // Prevent conversion if amount is invalid or symbols are not selected
         if (!amount || amount <= 0 || !fromSymbol || !toSymbol) {
             updateResultDisplay('Please enter a valid amount and select both currencies.', 'alert-danger');
             return;
@@ -66,17 +58,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Event listener for the input fields to trigger conversion on input change
+    // Add smooth transition effects to the input
+    const applyInputFocusEffects = (input) => {
+        input.addEventListener('focus', () => {
+            input.style.background = 'rgba(255, 255, 255, 0.95)';
+            input.style.transition = 'background 0.3s ease';
+        });
+        input.addEventListener('blur', () => {
+            input.style.background = 'rgba(255, 255, 255, 0.75)';
+        });
+    };
+
+    // Apply the effects to the crypto and fiat inputs
+    applyInputFocusEffects(cryptoInput);
+    applyInputFocusEffects(fiatInput);
+
+    // Event listeners for conversion triggers
     cryptoInput.addEventListener('input', () => {
-        clearOtherInput(cryptoInput);
-        convertCurrencies();
+        fiatInput.value = '';
+        if (cryptoInput.value) {
+            convertCurrencies();
+        }
     });
     fiatInput.addEventListener('input', () => {
-        clearOtherInput(fiatInput);
-        convertCurrencies();
+        cryptoInput.value = '';
+        if (fiatInput.value) {
+            convertCurrencies();
+        }
     });
-
-    // Event listeners for the currency selection dropdowns to trigger conversion on change
-    cryptoSymbolSelect.addEventListener('change', convertCurrencies);
-    fiatSymbolSelect.addEventListener('change', convertCurrencies);
+    cryptoSymbolSelect.addEventListener('change', () => {
+        clearInputs();
+        updateResultDisplay('', '');
+    });
+    fiatSymbolSelect.addEventListener('change', () => {
+        clearInputs();
+        updateResultDisplay('', '');
+    });
 });
