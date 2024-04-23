@@ -1,0 +1,162 @@
+/* public/css/style.css v1.6 */
+
+/* Universal base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Reset the body's default margin, padding and set a fully transparent background */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: transparent;
+    padding: 20px;
+    -webkit-user-select: none; /* Disable text selection */
+    user-select: none; /* Standard syntax */
+}
+
+/* Draggable area styles */
+.draggable {
+    -webkit-app-region: drag;
+}
+
+/* Constant glow effect */
+.converter-container {
+    box-shadow:
+        0 0 5px #bb9df9, /* Innermost shadow */
+        0 0 15px #bb9df9; /* Outer shadow */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Moving highlight effect */
+@keyframes moving-glow {
+    0% {
+        border-image: linear-gradient(to right, transparent 30%, #b200ff, transparent 70%) 1;
+        border-image-slice: 1;
+    }
+    100% {
+        border-image: linear-gradient(to right, transparent 70%, #b200ff, transparent 30%) 1;
+        border-image-slice: 1;
+    }
+}
+
+/* Main converter container with glassmorphism effect */
+.converter-container {
+    max-width: 90%;
+    margin: auto;
+    text-align: center;
+    padding: 2rem;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    border-image: linear-gradient(270deg, transparent, transparent, #b200ff, transparent, transparent) 1;
+    border-image-slice: 1;
+    position: relative;
+    animation: moving-glow 3s linear infinite; /* Apply the moving glow animation */
+    overflow: hidden; /* Ensures that the pseudo-elements are contained within the box */
+}
+
+/* Input and select styles consistent with the glassmorphism design */
+button, input, select {
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 0.2rem;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.85);
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effects for interactive elements */
+button:hover, input:hover, select:hover {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+/* Flex container for layout adjustments */
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Input group for proper alignment and spacing */
+.input-group {
+    margin: 0 15px;
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Dark mode specific styles */
+.dark-mode .converter-container {
+    background: rgba(0, 0, 0, 0.99); /* Black background for the inside of the box with 80% opacity */
+    color: #ccc; /* Lighter text for readability */
+    box-shadow:
+        0 0 5px #bb9df9, /* Innermost shadow */
+        0 0 15px #bb9df9; /* Outer shadow */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border for better glass effect */
+}
+
+.dark-mode button,
+.dark-mode input,
+.dark-mode select {
+    background: rgba(75, 75, 75, 0.5); /* Darker elements with transparency for glass effect */
+    color: #ddd; /* Lighter text for elements */
+}
+
+.dark-mode .alert {
+    background-color: #444; /* Darker background for alerts */
+    color: #ccc; /* Lighter text for alerts */
+}
+
+/* Toggle switch for dark mode */
+.switch {
+    position: fixed;
+    top: 25px;
+    right: 50px;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.switch input {
+    display: none; /* Hide the default checkbox */
+}
+
+.switch .slider {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    background-color: #ccc;
+    border-radius: 34px;
+    transition: background-color 0.2s;
+}
+
+.switch .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.2s;
+}
+
+.switch input:checked + .slider {
+    background-color: #2196F3;
+}
+
+.switch input:checked + .slider:before {
+    transform: translateX(26px);
+}
