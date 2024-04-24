@@ -24,6 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
         return Number(amount).toFixed(decimalPlaces);
     };
 
+    // Function to debounce a function call
+    const debounce = (fn, delay) => {
+        let timeoutId;
+        return (...args) => {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => fn(...args), delay);
+        };
+    };
+
     // Function to convert between crypto and fiat
     const convertCurrencies = async () => {
         const cryptoAmount = cryptoInput.value;
@@ -74,16 +83,17 @@ document.addEventListener('DOMContentLoaded', () => {
     applyInputFocusEffects(fiatInput);
 
     // Event listeners for conversion triggers
+    const debouncedConvertCurrencies = debounce(convertCurrencies, 500);
     cryptoInput.addEventListener('input', () => {
         fiatInput.value = '';
         if (cryptoInput.value) {
-            convertCurrencies();
+            debouncedConvertCurrencies();
         }
     });
     fiatInput.addEventListener('input', () => {
         cryptoInput.value = '';
         if (fiatInput.value) {
-            convertCurrencies();
+            debouncedConvertCurrencies();
         }
     });
     cryptoSymbolSelect.addEventListener('change', () => {
