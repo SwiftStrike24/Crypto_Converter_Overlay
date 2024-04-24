@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Converter</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <!-- Link to the custom CSS file -->
-    <link rel="stylesheet" href="/css/style.css">
+    <!-- Link to the custom CSS files -->
+    <link rel="stylesheet" href="css/base-utilities.css">
+    <link rel="stylesheet" href="css/layout-components.css">
+    <link rel="stylesheet" href="css/form-elements-animations.css">
+    <link rel="stylesheet" href="css/modes-themes.css">
 </head>
 <body>
 
@@ -28,18 +31,18 @@
     <!-- Input and Select Elements -->
     <div class="flex-container">
         <div class="input-group">
-            <input type="number" id="crypto-input" class="form-control" placeholder="Enter crypto amount">
+            <input type="number" id="crypto-input" class="form-control" placeholder="Enter crypto">
             <select id="crypto-symbol-select" class="form-control mt-2">
                 <% cryptoList.forEach(function(crypto) { %>
-                    <option value="<%= crypto.symbol %>"><%= crypto.name %> (<%= crypto.symbol %>)</option>
+                    <option value="<%= crypto.symbol %>"><%= crypto.symbol %></option>
                 <% }); %>
             </select>
         </div>
         <div class="input-group">
-            <input type="number" id="fiat-input" class="form-control" placeholder="Enter fiat amount">
+            <input type="number" id="fiat-input" class="form-control" placeholder="Enter fiat">
             <select id="fiat-symbol-select" class="form-control mt-2">
                 <% fiatList.forEach(function(fiat) { %>
-                    <option value="<%= fiat.symbol %>"><%= fiat.name %> (<%= fiat.symbol %>)</option>
+                    <option value="<%= fiat.symbol %>"><%= fiat.symbol %></option>
                 <% }); %>
             </select>
         </div>
