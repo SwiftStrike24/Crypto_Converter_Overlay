@@ -1,0 +1,27 @@
+/* layout-components.css v1.0 */
+
+/* Main converter container with glassmorphism effect */
+.converter-container {
+    max-width: 90%;
+    margin: auto;
+    text-align: center;
+    padding: 2rem;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    border-image: linear-gradient(270deg, transparent, transparent, #b200ff, transparent, transparent) 1;
+    border-image-slice: 1;
+    position: relative;
+    animation: moving-glow 3s linear infinite; /* Apply the moving glow animation */
+    overflow: hidden; /* Ensures that the pseudo-elements are contained within the box */
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.input-group {
+    margin: 0 15px;
+}

@@ -1,0 +1,75 @@
+/* form-elements-animations.css v1.4 */
+
+/* Input and select styles consistent with the glassmorphism design */
+button, input[type="number"], select {
+    border: none;
+    padding: 0.7rem; /* Reduced padding to allow more space for placeholder */
+    margin: 0.3rem;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.85);
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    width: calc(50% - 2.4rem); /* Adjusted for consistent styling */
+    text-align: center;
+    font-size: 1rem; /* Slightly reduced font size to prevent clipping */
+    font-weight: 500;
+    color: #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Additional styles for input[type='number'] to fit placeholder */
+input[type="number"]::placeholder {
+    font-size: 0.84rem; /* Smaller placeholder text if necessary */
+}
+
+button:hover, input[type="number"]:hover, select:hover {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Adjustments for number input fields for a consistent look */
+input[type="number"] {
+    text-align: center; /* Center-aligned text */
+    width: 90px; /* Increased width to match dropdowns */
+    padding: 0.5rem 1.2rem; /* Adjusted padding for consistency */
+}
+
+/* Specific styles for the select dropdown to fit the 3-letter symbol */
+#crypto-symbol-select, #fiat-symbol-select {
+    width: 90px; /* Specific width for select elements */
+    height: 30px; /* adjust the height to your desired value */
+    line-height: 30px; /* set the line height to the same value as the height */
+    padding: 0 1.2rem; /* remove top padding and keep horizontal padding */
+    margin: 0.3rem; /* Consistent margin with input fields */
+    text-align: center; /* Centered text for readability */
+    display: inline-block; /* Ensures elements are in-line */
+    font-size: 1.1rem; /* Increased font size for legibility */
+    font-weight: 500; /* Bold font for clarity */
+    color: #333; /* Darker color for better readability */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Consistent box-shadow with input fields */
+}
+
+select {
+    padding-top: 0.5rem; /* Adjust padding-top to vertically center text */
+    -webkit-appearance: none; /* Remove default styling */
+    -moz-appearance: none; /* Remove default styling */
+    appearance: none; /* Remove default styling */
+    background-position: right 1.0rem center; /* Position for custom arrow icon */
+    background-repeat: no-repeat; /* No repeat for background icon */
+    background-size: 12px; /* Size for the dropdown arrow */
+    cursor: pointer; /* Cursor pointer to indicate dropdown */
+    text-indent: 0.5rem; /* Add some space between the text and the dropdown arrow */
+    vertical-align: middle; /* Vertically center the text */
+}
+
+/* Moving highlight effect */
+@keyframes moving-glow {
+    0% {
+        border-image: linear-gradient(to right, transparent 30%, #b200ff, transparent 70%) 1;
+        border-image-slice: 1;
+    }
+    100% {
+        border-image: linear-gradient(to right, transparent 70%, #b200ff, transparent 30%) 1;
+        border-image-slice: 1;
+    }
+}

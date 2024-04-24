@@ -1,0 +1,20 @@
+/* base-utilities.css v1.0 */
+
+/* Universal base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: transparent;
+    padding: 20px;
+    -webkit-user-select: none; /* Disable text selection */
+    user-select: none; /* Standard syntax */
+}
+
+.draggable {
+    -webkit-app-region: drag;
+}
