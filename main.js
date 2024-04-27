@@ -30,7 +30,7 @@ function createWindow() {
 app.whenReady().then(() => {
     createWindow();
 
-    // Register a 'Ctrl+Shift+X' shortcut listener.
+    // Register a '`' shortcut listener.
     const ret = globalShortcut.register('`', () => {
         if (mainWindow.isVisible()) {
             mainWindow.hide();
@@ -40,11 +40,11 @@ app.whenReady().then(() => {
     });
 
     if (!ret) {
-        console.log('Registration failed: Ctrl+Shift+X');
+        console.log('Registration failed: `');
     }
 
     // Check whether a shortcut is registered.
-    console.log(globalShortcut.isRegistered('Control+Shift+X'));
+    console.log(globalShortcut.isRegistered('`'));
 });
 
 // Quit when all windows are closed, except on macOS.
