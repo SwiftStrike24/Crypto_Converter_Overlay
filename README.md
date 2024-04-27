@@ -53,7 +53,7 @@ Once the app is running, navigate to the home page where you will see two input 
 
 ## Shortcut Activation
 
-Quickly activate/deactivate the conversion tool with the `Ctrl+Shift+X` shortcut, streamlining your workflow.
+Quickly activate/deactivate the conversion tool with the `~` shortcut, streamlining your workflow.
 
 ## Contributing
 
