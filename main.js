@@ -31,7 +31,7 @@ app.whenReady().then(() => {
     createWindow();
 
     // Register a 'Ctrl+Shift+X' shortcut listener.
-    const ret = globalShortcut.register('Control+Shift+X', () => {
+    const ret = globalShortcut.register('`', () => {
         if (mainWindow.isVisible()) {
             mainWindow.hide();
         } else {

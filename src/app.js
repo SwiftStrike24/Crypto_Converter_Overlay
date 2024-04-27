@@ -1,4 +1,4 @@
-// app.js v1.9
+// app.js v2.1
 
 // Load environment variables from the .env file
 require('dotenv').config();
@@ -28,6 +28,9 @@ app.get('/', (req, res) => {
 // Define the API key and base URL for the CoinMarketCap API
 const API_KEY = process.env.COINMARKETCAP_API_KEY;
 const PRICE_CONVERSION_URL = 'https://pro-api.coinmarketcap.com/v2/tools/price-conversion';
+const QUOTES_LATEST_URL = 'https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest';
+
+// Define the base URL for the CoinConvert API endpoint
 const COINCONVERT_URL = 'https://api.coinconvert.net/convert';
 
 // Asynchronous function to handle currency conversion
@@ -103,11 +106,90 @@ app.get('/convert', async (req, res) => {
     }
 });
 
+// Route for fetching live price feed using CoinConvert API
+app.get('/live-price', async (req, res) => {
+    // Extract crypto and fiat symbols from the query string
+    const cryptoSymbol = req.query.crypto; // ensure this matches the query parameter name
+    const fiatSymbol = req.query.fiat; // ensure this matches the query parameter name
+
+    // Validate input
+    if (!cryptoSymbol || !fiatSymbol) {
+        return res.status(400).json({ error: 'Missing cryptocurrency or fiat symbol' });
+    }
+
+    // Set a default amount, since the conversion rate does not depend on the amount for display purposes
+    const amount = '1'; // Default amount for live price query
+
+    try {
+        const url = `${COINCONVERT_URL}/${cryptoSymbol.toLowerCase()}/${fiatSymbol.toLowerCase()}?amount=${amount}`;
+        const response = await axios.get(url);
+        
+        if (response.data.status === 'success') {
+            const cryptoAmount = response.data[cryptoSymbol.toUpperCase()];
+            const fiatAmount = response.data[fiatSymbol.toUpperCase()];
+            const conversionRate = fiatAmount / cryptoAmount;
+
+            res.json({
+                status: 'success',
+                crypto: cryptoSymbol,
+                fiat: fiatSymbol,
+                amount: cryptoAmount,
+                convertedAmount: fiatAmount,
+                conversionRate: conversionRate,
+                last_updated: new Date().toISOString() // Use the current time as the last updated timestamp
+            });
+        } else {
+            res.status(500).json({ message: 'API call was not successful', details: response.data });
+        }
+    } catch (error) {
+        console.error('Error fetching live price from CoinConvert API:', error);
+        res.status(500).json({ message: 'Failed to fetch data', error: error.message });
+    }
+});
+
+// New route for testing API
+app.get('/test-api', async (req, res) => {
+    // Retrieve crypto and fiat parameters from the query string or default to BTC and USD
+    const cryptoInput = req.query.crypto || 'btc'; // default to 'btc' if no crypto query param
+    const fiatInput = req.query.fiat || 'usd'; // default to 'usd' if no fiat query param
+    const amount = req.query.amount || '1'; // default to 1 if no amount query param
+
+    try {
+        const url = `${COINCONVERT_URL}/${cryptoInput}/${fiatInput}?amount=${amount}`;
+        const response = await axios.get(url);
+
+        if (response.data.status === 'success') {
+            // Ensure both crypto and fiat amounts are returned from API
+            const cryptoAmount = response.data[cryptoInput.toUpperCase()];
+            const fiatAmount = response.data[fiatInput.toUpperCase()];
+
+            // Calculate the conversion rate if both amounts are present
+            const conversionRate = cryptoAmount && fiatAmount ? fiatAmount / cryptoAmount : null;
+
+            // Format the response for better readability
+            const formattedResponse = {
+                status: response.data.status,
+                amount: cryptoAmount,
+                convertedAmount: fiatAmount,
+                conversionRate: conversionRate
+            };
+            res.json(formattedResponse);
+        } else {
+            res.status(500).json({ message: 'API call was not successful', details: response.data });
+        }
+    } catch (error) {
+        console.error('Error fetching data from CoinConvert API:', error);
+        res.status(500).json({ message: 'Failed to fetch data', error: error.message });
+    }
+});
+
+// Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
+// Error handling for unhandled promise rejections
 process.on('unhandledRejection', error => {
     console.error('Unhandled promise rejection:', error);
 });
