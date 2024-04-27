@@ -104,6 +104,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 cryptoChosen.textContent = data.crypto.toUpperCase();
                 fiatValue.textContent = parseFloat(data.convertedAmount).toFixed(2);
                 fiatChosen.textContent = data.fiat.toUpperCase();
+
+                const isInDarkMode = document.body.classList.contains('dark-mode');
+                const livePriceElement = document.getElementById('live-price');
+                if (isInDarkMode) {
+                    livePriceElement.style.color = 'white'; // Set text color to white in dark mode
+                } else {
+                    livePriceElement.style.color = 'black'; // Set text color to black in light mode
+                }
             } else {
                 throw new Error(data.error || 'Failed to fetch live price');
             }
@@ -146,17 +154,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     cryptoSymbolSelect.addEventListener('change', () => {
+        clearInputs(); // Add this line to clear the inputs when the crypto is changed
         if (cryptoInput.value || fiatInput.value) {
             debouncedConvertCurrencies();
         }
         updateLivePriceDisplay();
+        resultDisplay.style.display = 'none'; // Hides the result display
     });
 
     fiatSymbolSelect.addEventListener('change', () => {
+        clearInputs(); // And also here for when the fiat is changed
         if (cryptoInput.value || fiatInput.value) {
             debouncedConvertCurrencies();
         }
         updateLivePriceDisplay();
+        resultDisplay.style.display = 'none'; // Hides the result display
     });
 
     // Update the live price feed when currencies are changed

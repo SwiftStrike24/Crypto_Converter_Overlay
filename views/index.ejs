@@ -11,14 +11,24 @@
     <link rel="stylesheet" href="css/form-elements-animations.css">
     <link rel="stylesheet" href="css/modes-themes.css">
     
-    <!-- Custom Style for Live Price Feed Positioning -->
+    <!-- Custom Style for Live Price Feed Positioning and Color -->
     <style>
         .live-price-feed {
             position: absolute;
-            top: 25px; /* Adjust this value to move down the price feed */
-            left: 28%; /* Centers the feed horizontally */
-            transform: translateX(-50%); /* Centers the feed horizontally */
-            z-index: 10; /* Ensure it's above other elements */
+            top: 25px; /* Increase value to move down */
+            left: 28%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        
+        /* Style for light mode */
+        .light-mode .live-price-feed span {
+            color: black; /* Black text in light mode */
+        }
+        
+        /* Style for dark mode */
+        .dark-mode .live-price-feed span {
+            color: white; /* White text in dark mode */
         }
     </style>
 </head>
@@ -75,12 +85,17 @@
 <!-- Toggle Dark Mode Script -->
 <script>
     function toggleDarkMode(isDark) {
+        const livePrice = document.querySelector('.live-price-feed span'); // Select the live price text
         if (isDark) {
             document.body.classList.add('dark-mode');
             document.body.classList.remove('light-mode');
+            livePrice.classList.add('text-white'); // Add class to change text to white in dark mode
+            livePrice.classList.remove('text-dark'); // Remove class to ensure text is not black
         } else {
             document.body.classList.add('light-mode');
             document.body.classList.remove('dark-mode');
+            livePrice.classList.add('text-dark'); // Add class to change text to black in light mode
+            livePrice.classList.remove('text-white'); // Remove class to ensure text is not white
         }
     }
 
